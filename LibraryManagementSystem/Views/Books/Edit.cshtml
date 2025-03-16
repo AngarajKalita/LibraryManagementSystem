@@ -35,7 +35,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="AvailabilityStatus" class="control-label"></label>
-                <input asp-for="AvailabilityStatus" class="form-control" />
+                <select asp-for="AvailabilityStatus" class="form-control" asp-items="@(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Available", Value = "Available" },
+                    new SelectListItem { Text = "Borrowed", Value = "Borrowed" }
+                })">
+                </select>
                 <span asp-validation-for="AvailabilityStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,5 +55,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

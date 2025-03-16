@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Models;
+using System.Security.Policy;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -24,6 +25,7 @@ namespace LibraryManagementSystem.Controllers
         {
             return View(await _context.Books.ToListAsync());
         }
+
 
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -79,8 +81,62 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
             return View(book);
+
+        }
+        public async Task<IActionResult> Borrow()
+        {
+            return View(await _context.Books.ToListAsync());
         }
 
+        //public IActionResult Borrow()
+        //{
+        //    return View(_context.Books.ToListAsync());
+        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BorrowBook(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //var userModel = _context.Members.FirstOrDefault(m => m.Email == model.Email);
+            var book = _context.Books.FirstOrDefault(m => m.BookId == id);
+            if (book != null)
+            {
+              
+                if (book.AvailabilityStatus == "Borrowed")
+                {
+                    ModelState.AddModelError(string.Empty, "The book is already borrowed.");
+                    
+                    return RedirectToAction("Borrow");
+                }
+
+                book.AvailabilityStatus = "Borrowed";
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Update(book);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!BookExists(book.BookId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction("Borrow");
+                }
+                return RedirectToAction("Borrow");
+            }
+            return RedirectToAction("Borrow");
+        }
         // POST: Books/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -153,5 +209,37 @@ namespace LibraryManagementSystem.Controllers
         {
             return _context.Books.Any(e => e.BookId == id);
         }
+
+        ////Action to borrow a book
+        //public async Task<IActionResult> Borrow(int id, int memberId)
+        //{
+        //    var book = await _context.Books.FindAsync(id);
+        //    if (book == null || book.AvailabilityStatus == "Borrowed")
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    book.BorrowedById = memberId;
+        //    book.AvailabilityStatus = "Borrowed";
+        //    _context.Update(book);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //// Action to return a book
+        //public async Task<IActionResult> Return(int id)
+        //{
+        //    var book = await _context.Books.FindAsync(id);
+        //    if (book == null || book.AvailabilityStatus == "Available")
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    book.BorrowedById = null;
+        //    book.AvailabilityStatus = "Available";
+        //    _context.Update(book);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
     }
 }

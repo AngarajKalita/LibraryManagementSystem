@@ -1,16 +1,33 @@
 ﻿@{
-    ViewData["Title"] = "Admin home page";
+    ViewData["Title"] = "Admin Home Page";
 }
 
-<div class="text-center">
+<div class="container mt-5">
+    <div class="text-center">
+        <h2 class="mb-4">Admin Dashboard</h2>
+    </div>
 
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Index">Members</a>
-    </li>
-</div>
+    <div class="row justify-content-center">
+        <!-- Books Section -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manage Books</h5>
+                    <p class="card-text">View and manage book records.</p>
+                    <a class="btn btn-primary w-100" asp-area="" asp-controller="Books" asp-action="Index">Go to Books</a>
+                </div>
+            </div>
+        </div>
 
-<div>
+        <!-- Members Section -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manage Members</h5>
+                    <p class="card-text">View and manage library members.</p>
+                    <a class="btn btn-secondary w-100" asp-area="" asp-controller="Members" asp-action="Index">Go to Members</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

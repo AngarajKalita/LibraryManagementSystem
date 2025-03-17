@@ -1,10 +1,10 @@
 ﻿@model LibraryManagementSystem.Models.AdminModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Admin Login";
 }
 
-<h2>Login</h2>
+<h2>Admin Login</h2>
 
 <form asp-action="Login" method="post">
     <div class="form-group">
@@ -23,5 +23,7 @@
 </form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

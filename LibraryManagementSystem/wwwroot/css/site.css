@@ -1,22 +1,108 @@
+/* Base font size */
 html {
-  font-size: 14px;
+    font-size: 15px;
+    scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 17px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Body styling */
 body {
-  margin-bottom: 60px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar styles */
+.navbar {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    padding: 10px 0;
+}
+
+    .navbar a.navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white !important;
+    }
+
+    .navbar .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        transition: color 0.3s ease-in-out;
+    }
+
+        .navbar .navbar-nav .nav-link:hover {
+            color: #f8d210 !important;
+        }
+
+/* Buttons */
+.btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+    .btn-secondary:hover {
+        background-color: #545b62;
+    }
+
+/* Remove shadow from the Admin button */
+.btn-primary.shadow-none {
+    box-shadow: none !important;
+}
+
+/* Main content container */
+.container {
+    flex: 1;
+}
+
+/* Footer styles */
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 5px 0; /* Further reduced top and bottom padding */
+    font-size: 0.7rem; /* Reduced font size */
+    margin-top: auto;
+}
+
+    footer a {
+        color: #f8d210;
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar .navbar-nav {
+        text-align: center;
+    }
+
+    .btn {
+        width: 100%;
+    }
 }
